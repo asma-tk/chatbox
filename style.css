@@ -1,86 +1,54 @@
-body{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
-  margin:0;
-  background-color:#f0f0f0;
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
 }
 
-/* main card */
-
-  
-#wrap{
-  display:flex;
-  align-items:center;
-  flex-direction:column;   /* stack elements vertically */
-  gap:15px;
-
+#wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 15px;
+  width: 800px; /* Aligné sur la largeur du container */
 }
 
-
-/* textarea + button wrapper */
-#answer-wrap{
-  position:relative;
-  width:100%;
-}
-
-/* textarea */
-textarea{
-  
-  width:100%;
-  height:60px;
-  border:1px solid grey;
-  border-radius:15px;
-  padding:10px;
-  box-sizing:border-box;
-}
-
-/* button INSIDE textarea */
-button {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  height: 42px;
-  width: 80px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, green, green);
-  color: white;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
-  transition: all 0.2s ease;
-}
-
-
-
-button:active {
-  transform: scale(0.98);
-}
-  
+/* --- LE CONTAINER (CARTE) --- */
 #container {
-  position: relative;
   display: flex;
   flex-direction: column;
   background: white;
-  width: 800px;
+  width: 100%;
   height: 500px;
   border: 1px solid #e5e7eb;
   border-radius: 22px;
   padding: 20px;
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-  
-  overflow-y: auto;  /* scroll vertical activé */
+  box-sizing: border-box;
+  overflow: hidden; /* Empêche le container global de scroller */
 }
-#chat-wrap{
+
+.header {
+  background: white;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+/* --- ZONE DE CHAT AVEC SCROLLBAR --- */
+#chat-wrap {
   display: flex;
   flex-direction: column;
   gap: 10px;
-    overflow: auto;     /* Active le scroll si contenu dépasse */
-
+  flex-grow: 1;
+  overflow-y: auto; /* Active le scroll uniquement ici */
+  padding: 15px 5px;
 }
+
 #chat-wrap::-webkit-scrollbar {
   width: 8px;
 }
@@ -90,51 +58,66 @@ button:active {
   border-radius: 8px;
 }
 
-.bubble-right {
-  display: none;
+/* --- TEXTAREA BLOQUÉ --- */
+#answer-wrap {
   position: relative;
-  margin-left: auto;
-  margin-right: 0;
-  margin-top: 8px;
-  max-width: 280px;
-  width: fit-content;
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 14px 18px;
-  text-align: left;
-  color: white;
-  background: linear-gradient(135deg, #60a5fa, #2563eb);
-  border: none;
-  border-radius: 22px 22px 6px 22px;
-  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
+  width: 100%;
 }
 
+#txt {
+  width: 100%;
+  height: 60px;
+  min-height: 60px; /* Taille fixe */
+  max-height: 60px; /* Taille fixe */
+  min-width: 100%;
+  max-width: 100%;
+  border: 1px solid grey;
+  border-radius: 15px;
+  padding: 10px 100px 10px 15px; /* Espace à droite pour ne pas écrire sous le bouton */
+  box-sizing: border-box;
+  resize: none !important; /* Désactive la poignée de redimensionnement */
+  outline: none;
+}
+
+/* --- BOUTON POSITIONNÉ --- */
+button {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  height: 42px;
+  width: 80px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* --- BULLES --- */
+.bubble-right, .bubble-left {
+  position: relative;
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  display: block; /* Assurez-vous qu'elles sont visibles */
+}
+
+.bubble-right {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #60a5fa, #2563eb);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
 
 .bubble-left {
-  display: none;
-  position: relative;
-  margin-left: 0;
-  margin-right: auto;
-  margin-top: 8px;
-  max-width: 280px;
-  width: fit-content;
-  font-family: Inter, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
-  padding: 14px 18px;
-  text-align: left;
-  color: white;
-  background: linear-gradient(135deg, #86efac, #16a34a);
-  border: none;
-  border-radius: 22px 22px 6px 22px;
-  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
-}
-
-.header{
-  background: white;
-  padding: .75rem 1.25rem;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  align-self: flex-start;
+  background: #f0f0f0;
+  color: black;
+  border-bottom-left-radius: 4px;
 }
