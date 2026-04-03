@@ -1,0 +1,140 @@
+body{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  margin:0;
+  background-color:#f0f0f0;
+}
+
+/* main card */
+
+  
+#wrap{
+  display:flex;
+  align-items:center;
+  flex-direction:column;   /* stack elements vertically */
+  gap:15px;
+
+}
+
+
+/* textarea + button wrapper */
+#answer-wrap{
+  position:relative;
+  width:100%;
+}
+
+/* textarea */
+textarea{
+  
+  width:100%;
+  height:60px;
+  border:1px solid grey;
+  border-radius:15px;
+  padding:10px;
+  box-sizing:border-box;
+}
+
+/* button INSIDE textarea */
+button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  height: 42px;
+  width: 80px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, green, green);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+  transition: all 0.2s ease;
+}
+
+
+
+button:active {
+  transform: scale(0.98);
+}
+  
+#container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  width: 800px;
+  height: 500px;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+  
+  overflow-y: auto;  /* scroll vertical activé */
+}
+#chat-wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+    overflow: auto;     /* Active le scroll si contenu dépasse */
+
+}
+#chat-wrap::-webkit-scrollbar {
+  width: 8px;
+}
+
+#chat-wrap::-webkit-scrollbar-thumb {
+  background: #b7b7b7;
+  border-radius: 8px;
+}
+
+.bubble-right {
+  display: none;
+  position: relative;
+  margin-left: auto;
+  margin-right: 0;
+  margin-top: 8px;
+  max-width: 280px;
+  width: fit-content;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 14px 18px;
+  text-align: left;
+  color: white;
+  background: linear-gradient(135deg, #96ceb4, green);
+  border: none;
+  border-radius: 22px 22px 6px 22px;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
+}
+
+
+.bubble-left {
+  display: none;
+  position: relative;
+  margin-left: 0;
+  margin-right: auto;
+  margin-top: 8px;
+  max-width: 280px;
+  width: fit-content;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 14px 18px;
+  text-align: left;
+  color: white;
+  background: linear-gradient(135deg, green, white);
+  border: none;
+  border-radius: 22px 22px 6px 22px;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.28);
+}
+
+.header{
+  background: white;
+  padding: .75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
