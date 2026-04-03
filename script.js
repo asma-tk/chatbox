@@ -6,7 +6,6 @@ function sendText() {
   const bubble = document.createElement("div");
   bubble.classList.add("bubble-right");
   bubble.style.display = "block";
-  bubble.style.backgroundColorcolor = "blue";
 
 
     // pour la securité, on peut échapper les caractères spéciaux pour éviter les attaques XSS
@@ -20,7 +19,11 @@ function sendText() {
     chatWrap.scrollTop = chatWrap.scrollHeight;
   }
   
-  socket.send(text);
+  if (socket.readyState === WebSocket.OPEN) {
+    socket.send(text);
+  } else {
+    console.log("WebSocket pas encore prêt");
+  }
   document.getElementById("txt").value = "";
 }
 
@@ -55,5 +58,23 @@ socket.onmessage = (event) => {
     chatWrap.scrollTop = chatWrap.scrollHeight;
   }
 };
+
+window.addEventListener("DOMContentLoaded", () => {
+  const sendBtn = document.getElementById("send-btn");
+  const input = document.getElementById("txt");
+
+  if (sendBtn) {
+    sendBtn.addEventListener("click", sendText);
+  }
+
+  if (input) {
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendText();
+      }
+    });
+  }
+});
 
 
