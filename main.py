@@ -1,6 +1,6 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
+import os
 import uvicorn
 
 app = FastAPI()
@@ -24,10 +24,9 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         users.remove(websocket)
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root():
-    with open("index.html", "r") as f:
-        return f.read()
+# Serve static files (CSS, JS, images)
+app.mount("/", StaticFiles(directory=".", html=True), name="static")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.getenv("PORT", "8000"))
+    uvicorn.run(app, host="0.0.0.0", port=port)

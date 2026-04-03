@@ -6,6 +6,8 @@ function sendText() {
   const bubble = document.createElement("div");
   bubble.classList.add("bubble-right");
   bubble.style.display = "block";
+  bubble.style.backgroundColorcolor = "blue";
+
   bubble.innerHTML = `<p>${text}</p>`;
   
   const chatWrap = document.getElementById("chat-wrap");
@@ -18,10 +20,24 @@ function sendText() {
   document.getElementById("txt").value = "";
 }
 
-const socket = new WebSocket('ws://127.0.0.1:8000/ws');
+const params = new URLSearchParams(window.location.search);
+const backendParam = params.get("backend");
+
+if (backendParam) {
+  localStorage.setItem("chatbox-backend-url", backendParam);
+}
+
+const savedBackendUrl = localStorage.getItem("chatbox-backend-url");
+const backendBaseUrl = backendParam || savedBackendUrl || window.location.origin;
+const socketUrl = `${backendBaseUrl.replace(/^http/, "ws")}/ws`;
+const socket = new WebSocket(socketUrl);
 
 socket.onopen = () => {
   console.log('Connecté au serveur');
+};
+
+socket.onerror = () => {
+  console.log("Erreur WebSocket:", socketUrl);
 };
 
 
