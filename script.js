@@ -8,8 +8,12 @@ function sendText() {
   bubble.style.display = "block";
   bubble.style.backgroundColorcolor = "blue";
 
-  bubble.innerHTML = `<p>${text}</p>`;
-  
+
+    // pour la securité, on peut échapper les caractères spéciaux pour éviter les attaques XSS
+    let p = document.createElement("p");
+    p.textContent = text;
+    bubble.appendChild(p);
+      
   const chatWrap = document.getElementById("chat-wrap");
   if (chatWrap) {
     chatWrap.appendChild(bubble);
