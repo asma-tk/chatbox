@@ -40,7 +40,10 @@ socket.onmessage = (event) => {
   const bubble = document.createElement("div");
   bubble.classList.add("bubble-left");
   bubble.style.display = "block";
-  bubble.innerHTML = `<p>${event.data}</p>`;
+  // pour la securité, on peut échapper les caractères spéciaux pour éviter les attaques XSS
+  let p = document.createElement("p");
+  p.textContent = event.data;
+  bubble.appendChild(p);
   
   const chatWrap = document.getElementById("chat-wrap");
   if (chatWrap) {
