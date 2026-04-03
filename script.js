@@ -20,15 +20,7 @@ function sendText() {
   document.getElementById("txt").value = "";
 }
 
-const params = new URLSearchParams(window.location.search);
-const backendParam = params.get("backend");
-
-if (backendParam) {
-  localStorage.setItem("chatbox-backend-url", backendParam);
-}
-
-const savedBackendUrl = localStorage.getItem("chatbox-backend-url");
-const backendBaseUrl = backendParam || savedBackendUrl || window.location.origin;
+const backendBaseUrl = "https://chatbox-xjt3.onrender.com";
 const socketUrl = `${backendBaseUrl.replace(/^http/, "ws")}/ws`;
 const socket = new WebSocket(socketUrl);
 
